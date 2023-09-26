@@ -1,33 +1,28 @@
 <div class="flex w-screen h-screen flex-col justify-center items-center background-image">
-	<div class="h-80 w-80 max-w-sm rounded-3xl overflow-hidden shadow-lg bg-blue-700 items-center">
+	<div
+		class="h-auto w-96 rounded-3xl overflow-hidden shadow-lg  items-center backdrop-filter backdrop-blur-3xl">
 
-		<form (ngSubmit)="searchCity()" [formGroup]="cidadeForm" #formDir="ngForm" class="flex mt-4 justify-center items-center">
-			<input class="h-8 w-64 rounded-full text-center" type="text" formControlName="cidade" name="cidade" id="cidade">
-			<i class="ml-2" (click)="searchCity()">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-					stroke="currentColor" class="w-6 h-6">
-					<path stroke-linecap="round" stroke-linejoin="round"
-						d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-				</svg>
-			</i>
+		<form (ngSubmit)="searchCity()" [formGroup]="cidadeForm" class="flex mt-14 justify-center items-center">
+			<input class="h-8 w-64 rounded-full text-center text-lg focus:outline-none" type="text"
+				formControlName="cidade" id="cidade">
 		</form>
 
-
-		<div class="flex justify-center">
+		<div class="flex justify-center mt-4">
 			<img class="w-16" src="{{clima != null ? clima.current.condition.icon : 'Procurando'}}"
-				alt="Sunset in the mountains">
+				alt="Icone do Clima">
 		</div>
 
-		<div class="px-6 pb-4 pt-2">
-			<p class="font-bold text-xl mb-2">{{clima != null ? clima.location.name : "Procurando"}}</p>
-			<p>Região: {{clima != null ? clima.location.region : "Procurando"}}</p>
-			<p>País: {{clima != null ? clima.location.country : "Procurando"}}</p>
-			<p>Temperatura: {{clima != null ? clima.current.temp_c : "Procurando"}} &#176;C</p>
-			<p>Pressão: {{clima != null ? clima.current.pressure_in : "Procurando"}}</p>
-			<p>Umidade: {{clima != null ? clima.current.humidity : "Procurando"}}%</p>
-			<p>Condição: {{clima != null ? clima.current.condition.text : "Procurando"}}</p>
+		<div class="px-8 pb-4 mt-2 text-xl text-white font-semibold">
+			<p>Região/Estado: {{clima != null ? clima.location.region : "Procurando"}}</p>
+			<p class="mt-2">País: {{clima != null ? clima.location.country : "Procurando"}}</p>
+			<p class="mt-2">Temperatura: {{clima != null ? clima.current.temp_c : "Procurando"}} &#176;C</p>
+			<p class="mt-2">Pressão: {{clima != null ? clima.current.pressure_in : "Procurando"}} mb</p>
+			<p class="mt-2">Umidade: {{clima != null ? clima.current.humidity : "Procurando"}}%</p>
+			<p class="mt-2">Condição: {{clima != null ? clima.current.condition.text : "Procurando"}}</p>
+			<p class="mt-2">Vento: {{clima != null ? clima.current.wind_kph + " Km/h -" +clima.current.wind_dir : "Procurando"}}</p>
 		</div>
 	</div>
+
 	<a class="weather-api" href="https://www.weatherapi.com/" title="Free Weather API">
 		<img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0">
 	</a>

@@ -17,7 +17,7 @@ export class ClimaService {
 
   getCurrent(param: string): Observable<ClimaInterface> {
     return this.http.get<ClimaInterface>(
-      this.url + 'current.json' + '?key=' + this.api_key + '&q=' + param
+      this.url + 'current.json' + '?key=' + this.api_key + '&q=' + param + '&lang=pt'
     );
   }
 

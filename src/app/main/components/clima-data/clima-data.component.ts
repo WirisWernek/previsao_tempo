@@ -14,16 +14,12 @@ export class ClimaDataComponent implements OnInit {
 
   constructor(private climaService: ClimaService) {
     this.cidadeForm = new FormGroup({
-      cidade: new FormControl(''),
+      cidade: new FormControl('São Paulo'),
     });
   }
 
   ngOnInit(): void {
-    this.climaService
-      .getCurrent('São Paulo - SP')
-      .subscribe((clima) => {
-        this.clima = clima;
-      });
+    this.searchCity();
   }
 
   searchCity() {
