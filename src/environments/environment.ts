@@ -1,3 +1,3 @@
 export const environment = {
-	API_URL: 'https://api-master.wiriswernek.vercel.app'
+	API_URL: 'https://api-wiriswernek.vercel.app'
   };
