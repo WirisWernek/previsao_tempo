@@ -1,13 +1,16 @@
 <div class="flex w-screen h-screen flex-col justify-center items-center background-image">
-	<div
-		class="h-auto w-96 rounded-3xl overflow-hidden shadow-lg  items-center backdrop-filter backdrop-blur-3xl">
+	<div class="h-auto w-96 rounded-3xl overflow-hidden shadow-lg  items-center backdrop-filter backdrop-blur-3xl">
 
-		<form (ngSubmit)="searchCity()" [formGroup]="cidadeForm" class="flex mt-14 justify-center items-center">
+		<form (ngSubmit)="searchCityByName()" [formGroup]="cidadeForm" class="flex mt-14 justify-center items-center">
 			<input class="h-8 w-64 rounded-full text-center text-lg focus:outline-none" type="text"
 				formControlName="cidade" id="cidade">
+			<button (click)="searchCityByName()" type="button"
+				class="text-white bg-green-600 hover:bg-green-800 font-medium rounded-full text-sm h-8 px-2 py-1 text-center ml-1">
+				<img src="../../../../assets/images/search-icon.png" width="25" alt="Location icon">
+			</button>
 		</form>
 
-		<div class="flex justify-center mt-4">
+		<div class="flex justify-center mt-3">
 			<img class="w-16" src="{{clima != null ? clima.current.condition.icon : 'Procurando'}}"
 				alt="Icone do Clima">
 		</div>
@@ -19,7 +22,14 @@
 			<p class="mt-2">Pressão: {{clima != null ? clima.current.pressure_in : "Procurando"}} mb</p>
 			<p class="mt-2">Umidade: {{clima != null ? clima.current.humidity : "Procurando"}}%</p>
 			<p class="mt-2">Condição: {{clima != null ? clima.current.condition.text : "Procurando"}}</p>
-			<p class="mt-2">Vento: {{clima != null ? clima.current.wind_kph + " Km/h -" +clima.current.wind_dir : "Procurando"}}</p>
+			<p class="mt-2">Vento: {{clima != null ? clima.current.wind_kph + " Km/h -" +clima.current.wind_dir :
+				"Procurando"}}</p>
+		</div>
+		<div class="flex justify-center mb-2">
+			<button (click)="searchCityByCoords()" type="button"
+				class="text-white bg-blue-600 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
+				<img src="../../../../assets/images/location-icon.png" width="25" alt="Location icon">
+			</button>
 		</div>
 	</div>
 

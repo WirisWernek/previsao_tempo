@@ -19,18 +19,45 @@ export class ClimaDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchCity();
+    this.searchCityByName();
   }
 
-  searchCity() {
+  searchCityByName() {
     let cidade = this.cidadeForm.get('cidade')?.value;
 
     if (cidade == undefined || cidade == null || cidade.trim() == '') {
       alert('Informe uma cidade válida!');
     }
 
-    this.climaService.getCurrent(cidade).subscribe((clima) => {
+    this.climaService.getCityByName(cidade).subscribe((clima) => {
       this.clima = clima;
     });
+  }
+
+  searchCityByCoords() {
+    if (!navigator.geolocation) {
+      alert('Seu dispositivo ou seu Navegador não suporta Geolocalização');
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          let latitude = position.coords.latitude;
+          let longitude = position.coords.longitude;
+
+          this.climaService
+            .getCityByCoords(longitude, latitude)
+            .subscribe((clima) => {
+              this.clima = clima;
+              this.cidadeForm.setValue({ cidade: clima.location.name });
+            });
+
+          console.log(`${latitude} - ${longitude}`);
+        },
+        (error) => {
+          alert(
+            `Você não permitiu acesso à localizaçãodo dispositivo \n ${error.message}`
+          );
+        }
+      );
+    }
   }
 }
