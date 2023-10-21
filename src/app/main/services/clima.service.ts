@@ -11,9 +11,16 @@ export class ClimaService {
   constructor(private http: HttpClient) {
   }
 
-  getCurrent(param: string): Observable<ClimaInterface> {
-    return this.http.post<ClimaInterface>(environment.API_URL + "/clima", {
-      cidade: param,
+  getCityByName(cityName: string): Observable<ClimaInterface> {
+    return this.http.post<ClimaInterface>(environment.API_URL + "/clima/cidade", {
+      cidade: cityName,
     });
+  }
+
+  getCityByCoords(longitude: number, latitude: number): Observable<ClimaInterface>{
+	return this.http.post<ClimaInterface>(environment.API_URL + "/clima/coordenadas", {
+		latitude: latitude,
+		longitude: longitude
+	  });
   }
 }
