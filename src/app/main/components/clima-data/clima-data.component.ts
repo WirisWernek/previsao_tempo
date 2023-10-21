@@ -23,13 +23,13 @@ export class ClimaDataComponent implements OnInit {
   }
 
   searchCityByName() {
-    let cidade = this.cidadeForm.get('cidade')?.value;
+    const cidade = this.cidadeForm.get('cidade')?.value;
 
     if (cidade == undefined || cidade == null || cidade.trim() == '') {
       alert('Informe uma cidade válida!');
     }
 
-    this.climaService.getCityByName(cidade).subscribe((clima) => {
+    this.climaService.getCityByName(cidade).subscribe((clima: ClimaInterface) => {
       this.clima = clima;
     });
   }
@@ -40,12 +40,12 @@ export class ClimaDataComponent implements OnInit {
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          let latitude = position.coords.latitude;
-          let longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
 
           this.climaService
             .getCityByCoords(longitude, latitude)
-            .subscribe((clima) => {
+            .subscribe((clima: ClimaInterface) => {
               this.clima = clima;
               this.cidadeForm.setValue({ cidade: clima.location.name });
             });
