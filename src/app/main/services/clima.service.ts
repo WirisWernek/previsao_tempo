@@ -21,6 +21,6 @@ export class ClimaService {
 	return this.http.post<ClimaInterface>(environment.API_URL + "/clima/coordenadas", {
 		latitude: latitude,
 		longitude: longitude
-	  });
+	});
   }
 }
