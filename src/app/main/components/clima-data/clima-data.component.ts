@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { take } from 'rxjs';
 import { ClimaInterface } from '../../models/interfaces/Clima.interface';
 import { ClimaService } from '../../services/clima.service';
 
@@ -33,7 +34,7 @@ export class ClimaDataComponent implements OnInit {
 		}
 
 		this.loadingData = true;
-		this.climaService.getCityByName(cidade).subscribe((clima: ClimaInterface) => {
+		this.climaService.getCityByName(cidade).pipe(take(1)).subscribe((clima: ClimaInterface) => {
 			this.clima = clima;
 			this.cidadeForm.setValue({ cidade: `${clima.location.name} - ${clima.location.region}` });
 			this.loadingData = false;
@@ -54,7 +55,7 @@ export class ClimaDataComponent implements OnInit {
 					const longitude = position.coords.longitude;
 
 					this.climaService
-						.getCityByCoords(longitude, latitude)
+						.getCityByCoords(longitude, latitude).pipe(take(1))
 						.subscribe((clima: ClimaInterface) => {
 							this.clima = clima;
 							this.cidadeForm.setValue({ cidade: `${clima.location.name} - ${clima.location.region}` });
