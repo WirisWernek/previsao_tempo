@@ -1,39 +1,94 @@
 <div class="flex w-screen h-screen flex-col justify-center items-center background-image">
-	<div class="h-auto w-96 rounded-3xl overflow-hidden shadow-lg  items-center backdrop-filter backdrop-blur-3xl">
-
-		<form (ngSubmit)="searchCityByName()" [formGroup]="cidadeForm" class="flex mt-14 justify-center items-center">
-			<input class="h-8 w-64 rounded-full text-center text-lg focus:outline-none" type="text"
-				formControlName="cidade" id="cidade">
-			<button (click)="searchCityByName()" type="button"
-				class="text-white bg-green-600 hover:bg-green-800 font-medium rounded-full text-sm h-8 px-2 py-1 text-center ml-1">
-				<img src="../../../../assets/images/search-icon.png" width="25" alt="Location icon">
-			</button>
+	<div
+		class="h-auto w-96 pb-4 rounded-3xl overflow-hidden shadow-lg items-center backdrop-filter backdrop-blur-3xl"
+	>
+		<form
+			(ngSubmit)="searchCityByName()"
+			[formGroup]="cidadeForm"
+			class="flex mt-14 justify-center items-center"
+		>
+		<div class="relative w-[90%]">
+			<label for="cidade" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+			
+			<input formControlName="cidade" id="cidade" type="search" id="cidade" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite o nome da Cidade" required>
+			
+			<button (click)="searchCityByName()" type="button" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><img src="assets/images/search-icon.png" width="18" alt="Location icon"></button>
+		</div>
 		</form>
 
-		<div class="flex justify-center mt-3">
-			<img class="w-16" src="{{clima !== null ? clima.current.condition.icon : 'Procurando'}}"
-				alt="Icone do Clima">
-		</div>
+		<ng-container [ngTemplateOutlet]="loadingData ? loading : loaded "></ng-container>
 
-		<div class="px-8 pb-8 mt-2 text-xl text-white font-semibold">
-			<p>Região/Estado: {{clima !== null ? clima.location.region : "Procurando"}}</p>
-			<p class="mt-2">País: {{clima !== null ? clima.location.country : "Procurando"}}</p>
-			<p class="mt-2">Temperatura: {{clima !== null ? clima.current.temp_c : "Procurando"}} &#176;C</p>
-			<p class="mt-2">Pressão: {{clima !== null ? clima.current.pressure_in : "Procurando"}} mb</p>
-			<p class="mt-2">Umidade: {{clima !== null ? clima.current.humidity : "Procurando"}}%</p>
-			<p class="mt-2">Condição: {{clima !== null ? clima.current.condition.text : "Procurando"}}</p>
-			<p class="mt-2">Vento: {{clima !== null ? clima.current.wind_kph + " Km/h -" + clima.current.wind_dir :
-				"Procurando"}}</p>
-		</div>
+		<ng-template #loaded>
+			<div class="flex flex-col items-center justify-center mt-3">
+				<img
+					class="w-20"
+					src="{{ clima.current.condition.icon }}"
+					alt="Icone do Clima"
+				/>
+				<p class="mt-2 text-xl text-white">{{ clima.current.condition.text }}</p>
+			</div>
+
+			<div class="px-8 pb-8 mt-2 text-xl text-white">
+				<hr>
+				<div class="flex flex-row justify-center items-center gap-12 py-4">
+					<div class="flex flex-col items-center justify-center mt-3">
+						<img
+							class="w-6"
+							src="assets/icons/temperature.png"
+							alt="Ícone da Temperatura"
+						/>
+						<p class="mt-2 text-base text-white">{{ clima.current.temp_c }} &#176;C</p>
+					</div>
+
+					<div class="flex flex-col items-center justify-center mt-3">
+						<img
+							class="w-6"
+							src="assets/icons/wind.png"
+							alt="Ícone da Velocidade do Vento"
+						/>
+						<p class="mt-2 text-base text-white">{{clima.current.wind_kph + " Km/h" }}</p>
+					</div>
+
+					<div class="flex flex-col items-center justify-center mt-3">
+						<img
+							class="w-6"
+							src="assets/icons/drop-of-blood.png"
+							alt="Ícone da Umidade"
+						/>
+						<p class="mt-2 text-base text-white">{{ clima.current.humidity }}%</p>
+					</div>
+					
+				</div>
+				<hr>
+			</div>
+			
+		</ng-template>
+
+		<ng-template #loading>
+			<div class="w-full min-h-[16.8rem] flex justify-center items-center">
+				<app-spinner></app-spinner>
+			</div>
+		</ng-template>
+
 		<div class="flex justify-center mb-2">
-			<button (click)="searchCityByCoords()" type="button"
-				class="text-white bg-blue-600 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
-				<img src="../../../../assets/images/location-icon.png" width="25" alt="Location icon">
+			<button
+				(click)="searchCityByCoords()"
+				type="button"
+				class="text-white bg-blue-600 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+			>
+				<img
+					src="assets/images/location-icon.png"
+					width="25"
+					alt="Location icon"
+				/>
 			</button>
 		</div>
 	</div>
 
 	<a class="weather-api" href="https://www.weatherapi.com/" title="Free Weather API">
-		<img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0">
+		<img
+			src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
+			alt="Weather data by WeatherAPI.com" border="0"
+		/>
 	</a>
 </div>
