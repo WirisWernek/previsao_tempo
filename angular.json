@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "previsao_tempo:build:production"
+              "buildTarget": "previsao_tempo:build:production"
             },
             "development": {
-              "browserTarget": "previsao_tempo:build:development"
+              "buildTarget": "previsao_tempo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "previsao_tempo:build"
+            "buildTarget": "previsao_tempo:build"
           }
         },
         "test": {
