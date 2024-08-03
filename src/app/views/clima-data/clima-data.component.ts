@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { take } from 'rxjs';
-import { ClimaInterface } from '../../models/interfaces/Clima.interface';
-import { ClimaService } from '../../services/clima.service';
+
+
+import { NgTemplateOutlet } from '@angular/common';
+import { ClimaInterface } from 'src/app/models/interfaces/Clima.interface';
+import { ClimaService } from 'src/app/services/clima.service';
+import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
 @Component({
-	selector: 'app-clima-data',
-	templateUrl: './clima-data.component.html',
-	styleUrls: ['./clima-data.component.scss'],
+    selector: 'app-clima-data',
+    templateUrl: './clima-data.component.html',
+    styleUrls: ['./clima-data.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgTemplateOutlet,
+        SpinnerComponent,
+    ],
 })
 export class ClimaDataComponent implements OnInit {
 	clima!: ClimaInterface;
